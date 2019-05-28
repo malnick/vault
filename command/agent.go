@@ -13,8 +13,6 @@ import (
 	"sync"
 	"time"
 
-	"github.com/hashicorp/vault/command/agent/auth/pcf"
-
 	"github.com/hashicorp/errwrap"
 	log "github.com/hashicorp/go-hclog"
 	"github.com/hashicorp/vault/api"
@@ -27,6 +25,7 @@ import (
 	"github.com/hashicorp/vault/command/agent/auth/gcp"
 	"github.com/hashicorp/vault/command/agent/auth/jwt"
 	"github.com/hashicorp/vault/command/agent/auth/kubernetes"
+	"github.com/hashicorp/vault/command/agent/auth/pcf"
 	"github.com/hashicorp/vault/command/agent/cache"
 	"github.com/hashicorp/vault/command/agent/config"
 	"github.com/hashicorp/vault/command/agent/sink"

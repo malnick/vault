@@ -1,9 +1,7 @@
-package command
+package agent
 
 import (
-	"bytes"
 	"context"
-	"encoding/json"
 	"io/ioutil"
 	"os"
 	"testing"
@@ -172,17 +170,4 @@ func TestPCFEndToEnd(t *testing.T) {
 	if token.Token == "" {
 		t.Fatal("expected token but didn't receive it")
 	}
-}
-
-// TODO this is copy pasta from the AWS test
-func readToken(fileName string) (*logical.HTTPWrapInfo, error) {
-	b, err := ioutil.ReadFile(fileName)
-	if err != nil {
-		return nil, err
-	}
-	wrapper := &logical.HTTPWrapInfo{}
-	if err := json.NewDecoder(bytes.NewReader(b)).Decode(wrapper); err != nil {
-		return nil, err
-	}
-	return wrapper, nil
 }
