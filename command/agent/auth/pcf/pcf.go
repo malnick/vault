@@ -8,14 +8,10 @@ import (
 	"os"
 	"time"
 
+	pcf "github.com/hashicorp/vault-plugin-auth-pcf"
 	"github.com/hashicorp/vault-plugin-auth-pcf/signatures"
 	"github.com/hashicorp/vault/api"
 	"github.com/hashicorp/vault/command/agent/auth"
-)
-
-const (
-	EnvVarInstanceCertificate = "CF_INSTANCE_CERT"
-	EnvVarInstanceKey         = "CF_INSTANCE_KEY"
 )
 
 type pcfMethod struct {
@@ -46,17 +42,17 @@ func NewPCFAuthMethod(conf *auth.AuthConfig) (auth.AuthMethod, error) {
 }
 
 func (p *pcfMethod) Authenticate(ctx context.Context, client *api.Client) (string, map[string]interface{}, error) {
-	pathToClientCert := os.Getenv(EnvVarInstanceCertificate)
+	pathToClientCert := os.Getenv(pcf.EnvVarInstanceCertificate)
 	if pathToClientCert == "" {
-		return "", nil, fmt.Errorf("missing %q value", EnvVarInstanceCertificate)
+		return "", nil, fmt.Errorf("missing %q value", pcf.EnvVarInstanceCertificate)
 	}
 	certBytes, err := ioutil.ReadFile(pathToClientCert)
 	if err != nil {
 		return "", nil, err
 	}
-	pathToClientKey := os.Getenv(EnvVarInstanceKey)
+	pathToClientKey := os.Getenv(pcf.EnvVarInstanceKey)
 	if pathToClientKey == "" {
-		return "", nil, fmt.Errorf("missing %q value", EnvVarInstanceKey)
+		return "", nil, fmt.Errorf("missing %q value", pcf.EnvVarInstanceKey)
 	}
 	signingTime := time.Now().UTC()
 	signatureData := &signatures.SignatureData{
