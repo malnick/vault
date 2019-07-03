@@ -139,6 +139,20 @@ subjects:
   namespace: default
 ```
 
+## Invalidating Tokens
+Sometimes users need to invalidate tokens for a given entity. The Vault API and
+UI are both capable of handling this task.
+
+### Invalidating Tokens via the UI
+To revoke all tokens for an entity via the Vault UI, from the main page click `Access`, 
+then `Entities`, and find the entity then disable it. That will render all tokens for 
+the entity useless.
+
+### Invalidating Tokens via the API
+To revoke all tokens for an entity via the Vault API, you can use the [update by ID](https://www.vaultproject.io/api/secret/identity/entity.html#update-entity-by-id)
+call with the `disabled` setting set to true. This will disable the entity and render
+the tokens useless. 
+
 ## API
 
 The Kubernetes Auth Plugin has a full HTTP API. Please see the
